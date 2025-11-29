@@ -17,17 +17,6 @@ void ft_putchar(char c)
     write(1, &c, 1);
 }
 
-void ft_putstr(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-    {
-        ft_putchar(str[i++]);
-    }
-}
-
 char *ft_convert_hexadecimal(char c)
 {
     char *hex_str;
