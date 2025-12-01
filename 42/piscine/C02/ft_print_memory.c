@@ -49,12 +49,15 @@ int printable(char c)
 void print(unsigned int c, unsigned int base)
 {
     char *hex = "0123456789abcdef";
-
-    if (c >= base)
+    
+    if (base == 16)
     {
-        print(c / base, base);
+        if (c < 16)
+            ft_putchar('0');
+        else
+            ft_putchar(hex[c / base]);
+        ft_putchar(hex[c % base]);
     }
-    ft_putchar(hex[c % base]);
 }
 
 void convert_base(char *str, unsigned int base)
@@ -89,7 +92,7 @@ void *ft_print_memory(void *addr, unsigned int size)
         while (++k < j)
         {
             print(str[i + k], 16);
-            if (k % 4 == 0)
+            if (k % 2 == 1)
                 ft_putchar(' ');
         }
         while (k < 16)
