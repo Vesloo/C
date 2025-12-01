@@ -17,7 +17,8 @@ void ft_putchar(char c)
     write(1, &c, 1);
 }
 
-void ft_putstr(char *str){
+void ft_putstr(char *str)
+{
     int i;
 
     i = 0;
@@ -27,37 +28,55 @@ void ft_putstr(char *str){
     }
 }
 
-char *ft_convert_hexadecimal(char c)
+void print(unsigned int c, unsigned int base)
 {
-    char *hex_str;
-    int dec;
-    int i;
-    char result[3];
-    
-    hex_str = "0123456789abcdef";
+    char *hex = "0123456789abcdef";
 
-    i = 0;
-    dec = c;
-    
-    dec /= 16;
-    result[i] = hex_str[dec];
-    ft_putchar(result[i]);
-    i++;
-    dec = c;
-    dec %= 16;
-    result[i] = hex_str[dec];
-    ft_putchar(result[i]);
+    if (c >= base)
+    {
+        print(c / base, base);
+    }
+    ft_putchar(hex[c % base]);
+}
+
+void convert_base(char *str, unsigned int base)
+{
+    int i;
+
+    i = -1;
+
+    while (str[++i])
+        print(str[i], base);
 }
 
 void *ft_print_memory(void *addr, unsigned int size)
 {
-    if (size != 0)
+    int i;
+    int j;
+    int k;
+    char *str;
+    char *chunk;
+
+    str = (char *)addr;
+    i = 0;
+    j = -1;
+    k = -1;
+
+    while (++j <= 16 && str[++k] != '\0')
     {
-        ft_putstr(addr);
+        if (j % 4 == 0)
+            ft_putchar(' ');
+        chunk[j] = str[k];
+        if (j == 16)
+        {
+            convert_base(chunk, 16);
+            j = 0;
+        }
     }
 }
 
-int main (void) {
-    char *str = "Hello";
-    ft_print_memory(&str, 10);
+int main(void)
+{
+    char *str = "Hellooooooooooooooooooooooooooooooooooooooo";
+    ft_print_memory((char *)str, 10); // size = nb de ligne
 }
